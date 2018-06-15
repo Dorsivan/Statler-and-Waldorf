@@ -1,0 +1,43 @@
+﻿@model StatlerAndWaldorf.Models.Users
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>Profile</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.firstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.admin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.admin)
+            </td>
+        </tr>
+    </tbody>
+</table>
+
