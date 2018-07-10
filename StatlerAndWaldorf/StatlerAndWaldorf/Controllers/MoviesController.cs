@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using StatlerAndWaldorf.DTO;
 using StatlerAndWaldorf.Models;
 
 namespace StatlerAndWaldorf.Controllers
@@ -19,13 +20,13 @@ namespace StatlerAndWaldorf.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ExploreMovies()
         {
             return View(await _context.Movies.ToListAsync());
         }
 
         // GET: Movies/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> MovieProfile(int? id)
         {
             if (id == null)
             {
@@ -43,7 +44,7 @@ namespace StatlerAndWaldorf.Controllers
         }
 
         // GET: Movies/Create
-        public IActionResult Create()
+        public IActionResult AddMovie()
         {
             return View();
         }
@@ -53,15 +54,27 @@ namespace StatlerAndWaldorf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Length,Image,ContentType")] Movies movies)
+        public async Task<IActionResult> AddMovie([Bind("Title,ReleaseDate,Genre,Length")] AddMovieDTO dto)
         {
-            if (ModelState.IsValid)
+            var movies = await _context.Movies.SingleOrDefaultAsync(u => u.Title == dto.Title);
+            if (movies != null)
             {
-                _context.Add(movies);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "This movie already exists.");
+                dto.Title = "";
+                return View();
             }
-            return View(movies);
+
+            var movie = new Movies
+            {
+                Title = dto.Title,
+                ReleaseDate = dto.ReleaseDate,
+                Genre = dto.Genre,
+                Length = dto.Length
+            };
+
+            _context.Add(movie);
+            await _context.SaveChangesAsync();
+            return View("Profile", movie);
         }
 
         // GET: Movies/Edit/5
@@ -110,7 +123,7 @@ namespace StatlerAndWaldorf.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ExploreMovies));
             }
             return View(movies);
         }
@@ -141,7 +154,7 @@ namespace StatlerAndWaldorf.Controllers
             var movies = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id);
             _context.Movies.Remove(movies);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ExploreMovies));
         }
 
         private bool MoviesExists(int id)

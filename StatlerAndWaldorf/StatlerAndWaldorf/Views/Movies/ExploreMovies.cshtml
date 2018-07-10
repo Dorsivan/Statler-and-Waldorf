@@ -1,0 +1,49 @@
+﻿@model IEnumerable<StatlerAndWaldorf.Models.Movies>
+
+@{
+    ViewData["Title"] = "ExploreMovies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Explore Movies</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Length)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Length)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Read Some More</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
