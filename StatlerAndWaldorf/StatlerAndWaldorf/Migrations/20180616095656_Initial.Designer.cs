@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StatlerAndWaldorf.Models;
 
 namespace StatlerAndWaldorf.Migrations
 {
     [DbContext(typeof(StatlerAndWaldorfContext))]
-    partial class StatlerAndWaldorfContextModelSnapshot : ModelSnapshot
+    [Migration("20180616095656_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

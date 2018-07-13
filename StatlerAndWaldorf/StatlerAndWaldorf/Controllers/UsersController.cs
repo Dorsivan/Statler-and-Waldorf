@@ -95,7 +95,7 @@ namespace StatlerAndWaldorf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Signup([Bind("email,password,firstName,lastName")] DTO.RegisterDTO dto)
+        public async Task<IActionResult> Signup([Bind("email,password,firstName,lastName,country")] DTO.RegisterDTO dto)
         {
             var users = await _context.Users.SingleOrDefaultAsync(u => u.email == dto.email);
             if (users != null)
@@ -116,6 +116,7 @@ namespace StatlerAndWaldorf.Controllers
                 firstName = dto.firstName,
                 lastName = dto.lastName,
                 passwordHash = passwordHash,
+                country = dto.country,
                 admin = false
             };
 

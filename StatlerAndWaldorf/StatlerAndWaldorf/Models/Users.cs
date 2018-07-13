@@ -21,6 +21,8 @@ namespace StatlerAndWaldorf.Models
 
         public bool admin { get; set; }
 
+        public string country { get; set; } 
+
         public DateTime createdAt = DateTime.Now;
 
         public DateTime lastSeen = DateTime.Now;

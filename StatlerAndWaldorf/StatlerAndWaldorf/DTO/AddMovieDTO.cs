@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-namespace StatlerAndWaldorf.Models
-{
-    public class Movies
-    {
-        public int Id { get; set; }
 
+namespace StatlerAndWaldorf.DTO
+{
+    public class AddMovieDTO
+    {
         [MaxLength(100)]
         public string Title { get; set; }
 
