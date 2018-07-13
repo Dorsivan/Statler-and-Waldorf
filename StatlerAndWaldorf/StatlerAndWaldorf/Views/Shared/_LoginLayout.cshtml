@@ -26,12 +26,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Users" asp-action="Login" class="navbar-brand">StatlerAndWaldorf</a>
+                <a asp-area="" asp-controller="HomePage" asp-action="Index" class="navbar-brand">StatlerAndWaldorf</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><input type="text" placeholder="Search..." /></li>
+                    <li><select name="cars">
+                    <option value="MovieName">Movie Name</option>
+                    <option value="Review">Review</option>
+                    <option value="genre">Genre</option>
+                    <option value="Studio">Studio</option>
+                    </select></li>
+                    <li><a asp-area="" asp-controller="Users" asp-action="Login">Sign In | Sign Up</a></li>
                 </ul>
             </div>
         </div>

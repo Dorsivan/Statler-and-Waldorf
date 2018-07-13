@@ -37,3 +37,33 @@
 nav {
     background: url("images/image.jpg");
 }
+
+#intro {
+    padding: 50px;
+    margin: 50px;
+    background: url("~/images/unnamed.png");
+    
+}
+
+#intro header, #intro p {
+    position: relative;
+    z-index: 9999;
+    width: 436px;
+}
+
+#intro header {
+    padding: 0 0 22px 0;
+    font-weight: normal;
+    color: #fff;
+}
+
+#intro p {
+    padding: 0;
+    color: #d9f499;
+}
+
+    #intro img {
+        width: 100%;
+        height: auto;
+    }
+	

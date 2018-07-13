@@ -15,6 +15,7 @@ namespace StatlerAndWaldorf.Models
 
         public DbSet<StatlerAndWaldorf.Models.Users> Users { get; set; }
         public DbSet<StatlerAndWaldorf.Models.Movies> Movies { get; set; }
+        public DbSet<StatlerAndWaldorf.Models.Reviews> Reviews { get; set; }
 
     }
 }
