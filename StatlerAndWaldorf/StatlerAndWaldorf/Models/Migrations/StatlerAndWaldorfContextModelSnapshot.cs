@@ -15,7 +15,7 @@ namespace StatlerAndWaldorf.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("StatlerAndWaldorf.Models.Movies", b =>
@@ -23,11 +23,7 @@ namespace StatlerAndWaldorf.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ContentType");
-
                     b.Property<string>("Genre");
-
-                    b.Property<byte[]>("Image");
 
                     b.Property<int>("Length");
 
@@ -39,6 +35,22 @@ namespace StatlerAndWaldorf.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("StatlerAndWaldorf.Models.Reviews", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("isBlocked");
+
+                    b.Property<string>("review");
+
+                    b.Property<int>("userId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("StatlerAndWaldorf.Models.Users", b =>

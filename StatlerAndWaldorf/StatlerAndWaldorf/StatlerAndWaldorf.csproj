@@ -14,4 +14,14 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Users\Delete.cshtml" />
+    <None Include="Views\Users\Edit.cshtml" />
+    <None Include="Views\Users\Login.cshtml" />
+    <None Include="Views\Users\Profile.cshtml" />
+    <None Include="Views\Users\Search.cshtml" />
+    <None Include="Views\Users\showAllUsers.cshtml" />
+    <None Include="Views\Users\Signup.cshtml" />
+  </ItemGroup>
+
 </Project>

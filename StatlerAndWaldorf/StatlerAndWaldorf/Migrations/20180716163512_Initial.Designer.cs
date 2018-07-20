@@ -10,7 +10,7 @@ using StatlerAndWaldorf.Models;
 namespace StatlerAndWaldorf.Migrations
 {
     [DbContext(typeof(StatlerAndWaldorfContext))]
-    [Migration("20180713081607_Initial")]
+    [Migration("20180716163512_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,11 +25,7 @@ namespace StatlerAndWaldorf.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ContentType");
-
                     b.Property<string>("Genre");
-
-                    b.Property<byte[]>("Image");
 
                     b.Property<int>("Length");
 
@@ -65,6 +61,8 @@ namespace StatlerAndWaldorf.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("admin");
+
+                    b.Property<string>("country");
 
                     b.Property<string>("email")
                         .HasMaxLength(100);
