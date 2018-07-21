@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StatlerAndWaldorf.Models;
 using StatlerAndWaldorf.DTO;
+using Microsoft.AspNetCore.Http;
 
 namespace StatlerAndWaldorf.Controllers
 {
@@ -22,13 +23,49 @@ namespace StatlerAndWaldorf.Controllers
         // GET: Reviews
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Reviews.ToListAsync());
+            var reviews = await _context.Reviews
+                .ToListAsync();
+            return View(reviews);
         }
 
-       /* public ICollection<Reviews> ReturnUsersReviews(int userId)
+        public async Task<IActionResult> ReviewsOfMovie(Movies movie)
         {
-            //TODO
-        }*/
+            int role = (int)HttpContext.Session.GetInt32("Role");
+
+            if (role == 0) //in case of guest
+            {
+                return View();
+            }
+
+            else if (role == 1) //in case of normal user
+            {
+                var contextr = _context.Reviews;
+                IEnumerable<Reviews> reviewsWithoutBlocked =
+                    from r in contextr
+                    where r.movie.Id == movie.Id
+                    where r.isBlocked == false
+                    select r;
+                return View(reviewsWithoutBlocked);
+            }
+
+            //in case of 2 - admin
+            var context = _context.Reviews;
+            IEnumerable<Reviews> reviews =
+                from r in context
+                where r.movie.Id == movie.Id
+                select r;
+            return View(reviews);
+        }
+
+        public async Task<IActionResult> ReturnUsersReviews(Users user)
+        {
+            var context = _context.Reviews;
+            IEnumerable<Reviews> reviews =
+               from r in context
+               where r.user.Id == user.Id
+               select r;
+            return View(reviews);
+        }
 
         // GET: Reviews/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,7 +96,7 @@ namespace StatlerAndWaldorf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,userId,movieId,review,timePosted")] AddReviewDTO dto)
+        public async Task<IActionResult> Create([Bind("Id,user,movie,review,timePosted")] AddReviewDTO dto)
         {
             var reviews = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.Id);
             if (reviews != null)
@@ -72,8 +109,8 @@ namespace StatlerAndWaldorf.Controllers
             var review = new Reviews
             {
                 Id = dto.Id,
-                userId = dto.userId,
-                movieId = dto.movieId,
+                user = dto.user,
+                movie = dto.movie,
                 review = dto.review,
                 timePosted = dto.timePosted
             };
@@ -104,7 +141,7 @@ namespace StatlerAndWaldorf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,userId,movieId,review,isBlocked")] Reviews reviews)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,user,movie,review,isBlocked")] Reviews reviews)
         {
             if (id != reviews.Id)
             {

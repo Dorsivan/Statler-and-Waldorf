@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
 namespace StatlerAndWaldorf.Models
 {
     public class Users
@@ -28,5 +30,7 @@ namespace StatlerAndWaldorf.Models
         public DateTime createdAt = DateTime.Now;
 
         public DateTime lastSeen = DateTime.Now;
+
+        public virtual ICollection<Reviews> Reviews { get; set; }
     }
 }

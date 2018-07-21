@@ -5,45 +5,31 @@
     Layout = "~/Views/Shared/_MoviesLayout.cshtml";
 }
 
+
+
 <h2>Explore Movies</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ReleaseDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Genre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Length)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Length)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Read Some More</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="row" id="movie-container">
+
+    @foreach (var item in Model)
+    {
+    <div class="col-xs-12 col-md-3 current-movie">
+        <div class="Id" title="Movie Id">
+            @Html.DisplayFor(modelItem => item.Id)
+        </div>
+        <div class="title" title="Movie title">
+            @Html.DisplayFor(modelItem => item.Title)
+        </div>
+        <div class="genre" title="Movie genre">
+            @Html.DisplayFor(modelItem => item.Genre)
+        </div>
+        <div class="date" title="Release date">
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </div>
+        <div class="length" title="Movie length">
+            @Html.DisplayFor(modelItem => item.Length)
+        </div>
+    </div>
+    }
+</section>
+

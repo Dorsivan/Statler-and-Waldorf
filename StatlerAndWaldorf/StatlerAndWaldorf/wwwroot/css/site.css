@@ -1,30 +1,128 @@
-﻿body {
-    margin: 0px;
-    padding: 0px;
+﻿/******************/
+/*********font face***********************/
+@font-face {
+    font-family: "Avenir Regular";
+    src: url(fonts/avenirnextltpro-regular.ttf);
+    font-weight: normal;
 }
-body *{
-        font-family: Arial;
+/****************/
+h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #009688;
 }
-header#main-header, footer {
-    height: 150px;
-    line-height: 150px;
-    background-color: rgba(0.2,0.2,0.2,0.6);
-    text-align: center;
-    font-size: 32px;
-    text-shadow: 2px 2px #fff;
-    margin-top: 50px;
+/*********movies***********************/
+#movie-container {
+    min-height: 500px;
+    font-family: "Avenir Regular";
+    background-color: #efefef;
 }
-footer {
-    height: 100px;
-    line-height: 100px;
+
+    #movie-container > div.current-movie {
+        background-color: #fff;
+        height: 300px;
+        border-radius: 25px;
+        box-sizing: border-box;
+        margin: 10px;
+        text-align: center;
+        padding: 25px;
+    }
+
+        #movie-container > div.current-movie:hover {
+            background-color: rgba(0,0,0,0.7);
+        }
+
+            #movie-container > div.current-movie:hover div {
+                color: #fff;
+            }
+
+        #movie-container > div.current-movie div {
+            margin-bottom: 10px;
+            color: #333333;
+            font-size: 24px;
+        }
+
+        #movie-container > div.current-movie > div.title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #009688;
+        }
+
+
+/**************add movie**/
+
+#add-movie-container {
+    height: 600px;
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: #efefef;
 }
-#main-container{
-    min-height:500px;
+
+    #add-movie-container div#current-add-movie {
+        width: 100%;
+    }
+
+        #add-movie-container div#current-add-movie form {
+            width: 80%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 25px;
+            padding: 50px;
+        }
+
+            #add-movie-container div#current-add-movie form label,
+            #add-movie-container div#current-add-movie form label input,
+            #add-movie-container div#current-add-movie form label select {
+                color: #333333;
+                font-size: 24px;
+            }
+
+            #add-movie-container div#current-add-movie form label {
+                margin: 20px 0px 10px 0px;
+            }
+
+            #add-movie-container div#current-add-movie form h2 {
+                font-size: 36px;
+                font-weight: bold;
+                color: #009688;
+            }
+
+    #add-movie-container form #formBtns {
+        text-align: left;
+        margin: 30px 0px;
+    }
+
+    #add-movie-container #formBtns input {
+        width: 75px;
+        text-align: center;
+        font-size: 14px;
+    }
+/***********reviews********/
+#review-container {
+    padding: 15px;
+    min-height: 500px;
+    font-family: "Avenir Regular";
+    background-color: #efefef;
 }
-div{
-    height: 100px;
-    background-color:  blue;
-}
-div:first-child {
-    background-color: green;
-}
+
+    #review-container > div.current-review {
+        margin: 10px 0px;
+        border-bottom: 1px #8c8b8b solid;
+        width: 100%;
+    }
+
+        #review-container > div.current-review > div,
+        #review-container > div.current-review > span {
+            font-size: 20px;
+            color: #333333;
+        }
+
+            #review-container > div.current-review > div.reviewTitle {
+                font-size: 24px;
+                font-weight: bold;
+                color: #009688;
+            }
+
+        #review-container > div.current-review span.bad-review {
+            color: #009688;
+        }

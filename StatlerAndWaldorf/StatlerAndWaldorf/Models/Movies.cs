@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace StatlerAndWaldorf.Models
 {
@@ -19,5 +20,7 @@ namespace StatlerAndWaldorf.Models
         public string Genre { get; set; }
 
         public int Length { get; set; }
+
+        public virtual ICollection<Reviews> Reviews { get; set; }
     }
 }

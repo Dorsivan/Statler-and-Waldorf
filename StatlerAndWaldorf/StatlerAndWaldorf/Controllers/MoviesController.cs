@@ -43,6 +43,15 @@ namespace StatlerAndWaldorf.Controllers
             return View(movies);
         }
 
+        public async Task<IActionResult> AddReview(Reviews r, int? id)
+        {
+            var movie = await _context.Movies.SingleOrDefaultAsync(u => u.Id == id);
+            movie.Reviews.Add(r);
+            await _context.SaveChangesAsync();
+
+            return View(MovieProfile(id));
+        }
+
         // GET: Movies/Create
         public IActionResult AddMovie()
         {
@@ -74,7 +83,7 @@ namespace StatlerAndWaldorf.Controllers
 
             _context.Add(movie);
             await _context.SaveChangesAsync();
-            return View("Profile", movie);
+            return View("MovieProfile", movie);
         }
 
         // GET: Movies/Edit/5
