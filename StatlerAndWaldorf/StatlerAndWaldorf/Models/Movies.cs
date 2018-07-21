@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+
 namespace StatlerAndWaldorf.Models
 {
     public class Movies
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [MaxLength(100)]

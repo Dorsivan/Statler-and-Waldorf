@@ -5,6 +5,8 @@ namespace StatlerAndWaldorf.Models
 {
     public class Users
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Unique]

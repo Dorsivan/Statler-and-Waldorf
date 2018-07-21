@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using StatlerAndWaldorf.Models;
 
 namespace StatlerAndWaldorf.Controllers
@@ -73,8 +74,17 @@ namespace StatlerAndWaldorf.Controllers
                 return View();
             }
 
+            //updating flags in session
+            HttpContext.Session.SetInt32("isSignedIn", 1);
+
+            if (users.admin == true)
+                HttpContext.Session.SetInt32("Role", 2);
+            else
+                HttpContext.Session.SetInt32("Role", 1);
+            
             users.lastSeen = DateTime.Now;
             _context.Users.Update(users);
+
             return View("Profile", users);
         }
 
@@ -117,8 +127,12 @@ namespace StatlerAndWaldorf.Controllers
                 lastName = dto.lastName,
                 passwordHash = passwordHash,
                 country = dto.country,
-                admin = false
+                admin = false //default
             };
+
+            //updating flags in session
+            HttpContext.Session.SetInt32("isSignedIn", 1);
+            HttpContext.Session.SetInt32("Role", 1);
 
             _context.Add(user);
             await _context.SaveChangesAsync();
