@@ -44,11 +44,17 @@ namespace StatlerAndWaldorf.Migrations
 
                     b.Property<bool>("isBlocked");
 
+                    b.Property<int?>("movieId");
+
                     b.Property<string>("review");
 
-                    b.Property<int>("userId");
+                    b.Property<int?>("userId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("movieId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Reviews");
                 });
@@ -76,6 +82,17 @@ namespace StatlerAndWaldorf.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("StatlerAndWaldorf.Models.Reviews", b =>
+                {
+                    b.HasOne("StatlerAndWaldorf.Models.Movies", "movie")
+                        .WithMany("Reviews")
+                        .HasForeignKey("movieId");
+
+                    b.HasOne("StatlerAndWaldorf.Models.Users", "user")
+                        .WithMany("Reviews")
+                        .HasForeignKey("userId");
                 });
 #pragma warning restore 612, 618
         }
