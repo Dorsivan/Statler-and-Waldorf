@@ -48,7 +48,7 @@ namespace StatlerAndWaldorf
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Users}/{action=Login}/{id?}");
+                    template: "{controller=HomePage}/{action=Index}/{id?}");
             });
         }
     }

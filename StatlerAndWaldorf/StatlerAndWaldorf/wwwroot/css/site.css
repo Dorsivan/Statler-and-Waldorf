@@ -1,69 +1,30 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    margin: 0px;
+    padding: 0px;
 }
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+body *{
+        font-family: Arial;
 }
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+header#main-header, footer {
+    height: 150px;
+    line-height: 150px;
+    background-color: rgba(0.2,0.2,0.2,0.6);
+    text-align: center;
+    font-size: 32px;
+    text-shadow: 2px 2px #fff;
+    margin-top: 50px;
 }
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+footer {
+    height: 100px;
+    line-height: 100px;
 }
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+#main-container{
+    min-height:500px;
 }
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+div{
+    height: 100px;
+    background-color:  blue;
 }
-
-nav {
-    background: url("images/image.jpg");
+div:first-child {
+    background-color: green;
 }
-
-#intro {
-    padding: 50px;
-    margin: 50px;
-    background: url("~/images/unnamed.png");
-    
-}
-
-#intro header, #intro p {
-    position: relative;
-    z-index: 9999;
-    width: 436px;
-}
-
-#intro header {
-    padding: 0 0 22px 0;
-    font-weight: normal;
-    color: #fff;
-}
-
-#intro p {
-    padding: 0;
-    color: #d9f499;
-}
-
-    #intro img {
-        width: 100%;
-        height: auto;
-    }
-	
