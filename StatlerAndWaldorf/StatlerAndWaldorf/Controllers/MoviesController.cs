@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StatlerAndWaldorf.DTO;
+using Microsoft.AspNetCore.Http;
 using StatlerAndWaldorf.Models;
 
 namespace StatlerAndWaldorf.Controllers
@@ -40,6 +41,8 @@ namespace StatlerAndWaldorf.Controllers
                 return NotFound();
             }
 
+            //HttpContext.Session.SetInt32("CurrentMovieId", (int)id);
+
             return View(movies);
         }
 
@@ -50,6 +53,13 @@ namespace StatlerAndWaldorf.Controllers
             await _context.SaveChangesAsync();
 
             return View(MovieProfile(id));
+        }
+
+        public async Task<IActionResult> MovieReviews(int? id)
+        {
+            var movie = await _context.Movies.SingleOrDefaultAsync(u => u.Id == id);
+
+            return View(movie.Reviews);
         }
 
         // GET: Movies/Create
@@ -78,7 +88,7 @@ namespace StatlerAndWaldorf.Controllers
                 Title = dto.Title,
                 ReleaseDate = dto.ReleaseDate,
                 Genre = dto.Genre,
-                Length = dto.Length
+                Length = int.Parse(dto.Length)
             };
 
             _context.Add(movie);

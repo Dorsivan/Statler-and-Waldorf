@@ -19,7 +19,6 @@
     <None Include="Views\Users\Edit.cshtml" />
     <None Include="Views\Users\Login.cshtml" />
     <None Include="Views\Users\Profile.cshtml" />
-    <None Include="Views\Users\Search.cshtml" />
     <None Include="Views\Users\showAllUsers.cshtml" />
     <None Include="Views\Users\Signup.cshtml" />
   </ItemGroup>

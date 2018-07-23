@@ -81,7 +81,9 @@ namespace StatlerAndWaldorf.Controllers
                 HttpContext.Session.SetInt32("Role", 2);
             else
                 HttpContext.Session.SetInt32("Role", 1);
-            
+
+            //HttpContext.Session.SetInt32("CurrentUserId", users.Id);
+
             users.lastSeen = DateTime.Now;
             _context.Users.Update(users);
 
@@ -133,6 +135,7 @@ namespace StatlerAndWaldorf.Controllers
             //updating flags in session
             HttpContext.Session.SetInt32("isSignedIn", 1);
             HttpContext.Session.SetInt32("Role", 1);
+            //HttpContext.Session.SetInt32("CurrentUserId", users.Id);
 
             _context.Add(user);
             await _context.SaveChangesAsync();

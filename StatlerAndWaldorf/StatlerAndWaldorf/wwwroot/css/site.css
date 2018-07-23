@@ -98,27 +98,29 @@ h2 {
         font-size: 14px;
     }
 /***********reviews********/
+/***********reviews********/
 #review-container {
     padding: 15px;
-    min-height: 500px;
+    height: auto;
     font-family: "Avenir Regular";
     background-color: #efefef;
 }
 
     #review-container > div.current-review {
-        margin: 10px 0px;
+        margin-top: 10px;
+        padding-bottom: 10px;
         border-bottom: 1px #8c8b8b solid;
         width: 100%;
     }
 
         #review-container > div.current-review > div,
         #review-container > div.current-review > span {
-            font-size: 20px;
+            font-size: 18px;
             color: #333333;
         }
 
             #review-container > div.current-review > div.reviewTitle {
-                font-size: 24px;
+                font-size: 22px;
                 font-weight: bold;
                 color: #009688;
             }
@@ -126,3 +128,84 @@ h2 {
         #review-container > div.current-review span.bad-review {
             color: #009688;
         }
+
+    #movie-profile-container .title {
+        text-shadow: 2px 2px #333;
+        color: #009688;
+        font-size: 32px;
+        position: relative;
+        -webkit-animation-name: moveTitle; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+        -webkit-animation-iteration-count: 1; /* Safari 4.0 - 8.0 */
+        animation-name: moveTitle;
+        animation-duration: 4s;
+        animation-iteration-count: 1;
+    }
+
+
+@keyframes moveTitle {
+    0% {
+        left: 0px;
+        top: 0px;
+    }
+
+    25% {
+        left: 50%;
+        top: 0px;
+    }
+    /* 50% {
+        left: 200px;
+        top: 200px;
+    }
+
+    75% {
+        left: 0px;
+        top: 200px;
+    }
+       */
+    100% {
+        left: 0px;
+        top: 0px;
+    }
+}
+
+/********imdb api*************/
+#indb-api-container {
+    color: #333333;
+    font-size: 16px;
+}
+
+    #indb-api-container > div.program-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #009688;
+    }
+
+    #indb-api-container ul#seasons {
+        padding: 0px;
+        margin: 0px;
+        list-style-type: none;
+    }
+
+        #indb-api-container ul#seasons li {
+            padding: 2px 0px;
+        }
+
+            #indb-api-container ul#seasons li a {
+                color: #009688;
+            }
+
+        #indb-api-container ul#seasons ul#episodes li.episode div.title {
+            color: #009688;
+            text-decoration: underline;
+        }
+
+        #indb-api-container ul#seasons ul#episodes li.episode div.overview {
+            font-size: 14px;
+        }
+
+#map {
+    height: 500px;
+    width: 500px;
+    margin-top: 300px;
+}

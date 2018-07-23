@@ -14,6 +14,6 @@ namespace StatlerAndWaldorf.DTO
 
         public string Genre { get; set; }
 
-        public int Length { get; set; }
+        public string Length { get; set; }
     }
 }

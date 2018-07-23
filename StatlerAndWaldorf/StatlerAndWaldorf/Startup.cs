@@ -55,7 +55,7 @@ namespace StatlerAndWaldorf
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Movies}/{action=ExploreMovies}/{id?}");
+                    template: "{controller=Reviews}/{action=Index}/{id?}");
             });
         }
     }

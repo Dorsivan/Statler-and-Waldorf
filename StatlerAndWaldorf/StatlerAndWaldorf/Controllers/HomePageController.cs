@@ -17,6 +17,8 @@ namespace StatlerAndWaldorf.Controllers
         {
             HttpContext.Session.SetInt32("isSignedIn", 0); //1 signed in 0 not signed in
             HttpContext.Session.SetInt32("Role", 0); //0 guest, 1 user, 2 admin
+            HttpContext.Session.SetInt32("CurrentUserId", 0);
+            HttpContext.Session.SetInt32("CurrentMovieId", 0);
 
             return View();
         }

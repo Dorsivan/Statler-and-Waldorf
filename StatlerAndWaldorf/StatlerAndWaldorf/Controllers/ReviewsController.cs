@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace StatlerAndWaldorf.Controllers
 {
+    [Route("Reviews")]
     public class StatlerAndWaldorf : Controller
     {
         private readonly StatlerAndWaldorfContext _context;
@@ -21,6 +22,8 @@ namespace StatlerAndWaldorf.Controllers
         }
 
         // GET: Reviews
+
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var reviews = await _context.Reviews
@@ -91,12 +94,9 @@ namespace StatlerAndWaldorf.Controllers
             return View();
         }
 
-        // POST: Reviews/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,user,movie,review,timePosted")] AddReviewDTO dto)
+        public async Task<IActionResult> Create([Bind("Id,userId,movieId,review,timePosted")] @try dto)
         {
             var reviews = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.Id);
             if (reviews != null)
@@ -106,11 +106,14 @@ namespace StatlerAndWaldorf.Controllers
                 return View();
             }
 
+            Users user = await _context.Users.SingleOrDefaultAsync(u => u.Id == dto.userId);
+            Movies movie = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.movieId);
+
             var review = new Reviews
             {
                 Id = dto.Id,
-                user = dto.user,
-                movie = dto.movie,
+                user = user,
+                movie = movie,
                 review = dto.review,
                 timePosted = dto.timePosted
             };
@@ -119,6 +122,38 @@ namespace StatlerAndWaldorf.Controllers
             await _context.SaveChangesAsync();
             return View("Profile", review);
         }
+
+        // POST: Reviews/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        /*public async Task<IActionResult> Create([Bind("Id,review,timePosted")] AddReviewDTO dto)
+        {
+            var reviews = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.Id);
+            if (reviews != null)
+            {
+                ModelState.AddModelError("", "This review already exists."); //we should never get here
+                dto.Id = -1;
+                return View();
+            }
+
+            int userId = (int)HttpContext.Session.GetInt32("CurrentUserId");
+            int movieId = (int)HttpContext.Session.GetInt32("CurrentMovieId");
+
+            var review = new Reviews
+            {
+                Id = dto.Id,
+                user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId),
+                movie = await _context.Movies.SingleOrDefaultAsync(u => u.Id == movieId),
+                review = dto.review,
+                timePosted = dto.timePosted
+            };
+
+            _context.Add(review);
+            await _context.SaveChangesAsync();
+            return View("Profile", review);
+        }*/
 
         // GET: Reviews/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -141,7 +176,7 @@ namespace StatlerAndWaldorf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,user,movie,review,isBlocked")] Reviews reviews)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,review,isBlocked")] Reviews reviews)
         {
             if (id != reviews.Id)
             {

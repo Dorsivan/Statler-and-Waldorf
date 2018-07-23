@@ -29,6 +29,9 @@
         <div class="length" title="Movie length">
             @Html.DisplayFor(modelItem => item.Length)
         </div>
+
+        <a asp-action="MovieProfile" asp-route-id="@item.Id">>Read Some More</a>
+
     </div>
     }
 </section>

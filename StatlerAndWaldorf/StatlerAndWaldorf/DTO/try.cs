@@ -6,15 +6,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using StatlerAndWaldorf.Models;
 
+
 namespace StatlerAndWaldorf.DTO
 {
-    public class AddReviewDTO
+    public class @try
     {
         public int Id { get; set; }
 
-        /*public virtual Users user { get; set; }
+        public int userId { get; set; }
 
-        public virtual Movies movie { get; set; }*/
+        public int movieId { get; set; }
 
         public string review { get; set; }
 

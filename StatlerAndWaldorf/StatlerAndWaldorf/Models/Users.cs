@@ -30,7 +30,5 @@ namespace StatlerAndWaldorf.Models
         public DateTime createdAt = DateTime.Now;
 
         public DateTime lastSeen = DateTime.Now;
-
-        public virtual ICollection<Reviews> Reviews { get; set; }
     }
 }
