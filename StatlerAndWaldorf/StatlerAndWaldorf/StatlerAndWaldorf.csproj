@@ -23,4 +23,8 @@
     <None Include="Views\Users\Signup.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Reviews\" />
+  </ItemGroup>
+
 </Project>

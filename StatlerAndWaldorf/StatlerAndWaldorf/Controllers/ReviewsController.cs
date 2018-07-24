@@ -45,7 +45,7 @@ namespace StatlerAndWaldorf.Controllers
                 var contextr = _context.Reviews;
                 IEnumerable<Reviews> reviewsWithoutBlocked =
                     from r in contextr
-                    where r.movie.Id == movie.Id
+                    where r.movieId == movie.Id
                     where r.isBlocked == false
                     select r;
                 return View(reviewsWithoutBlocked);
@@ -55,7 +55,7 @@ namespace StatlerAndWaldorf.Controllers
             var context = _context.Reviews;
             IEnumerable<Reviews> reviews =
                 from r in context
-                where r.movie.Id == movie.Id
+                where r.movieId == movie.Id
                 select r;
             return View(reviews);
         }
@@ -65,12 +65,13 @@ namespace StatlerAndWaldorf.Controllers
             var context = _context.Reviews;
             IEnumerable<Reviews> reviews =
                from r in context
-               where r.user.Id == user.Id
+               where r.userId == user.Id
                select r;
             return View(reviews);
         }
 
         // GET: Reviews/Details/5
+        [Route("Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -89,6 +90,7 @@ namespace StatlerAndWaldorf.Controllers
         }
 
         // GET: Reviews/Create
+        [Route("Create")]
         public IActionResult Create()
         {
             return View();
@@ -96,26 +98,23 @@ namespace StatlerAndWaldorf.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,userId,movieId,review,timePosted")] @try dto)
+        public async Task<IActionResult> Create([Bind("userId,movieId,review")] CreateReviewDTO dto)
         {
-            var reviews = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.Id);
+            var reviews = await _context.Reviews.SingleOrDefaultAsync(u => u.userId == int.Parse(dto.userId) &&
+                                                                        u.movieId == int.Parse(dto.movieId));
+
             if (reviews != null)
             {
-                ModelState.AddModelError("", "This review already exists."); //we should never get here
-                dto.Id = -1;
+                ModelState.AddModelError("", "you already reviewed this movie."); //we should never get here
                 return View();
             }
 
-            Users user = await _context.Users.SingleOrDefaultAsync(u => u.Id == dto.userId);
-            Movies movie = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.movieId);
-
             var review = new Reviews
             {
-                Id = dto.Id,
-                user = user,
-                movie = movie,
+                userId = int.Parse(dto.userId),
+                movieId = int.Parse(dto.movieId),
                 review = dto.review,
-                timePosted = dto.timePosted
+                timePosted = DateTime.Now
             };
 
             _context.Add(review);
@@ -123,39 +122,9 @@ namespace StatlerAndWaldorf.Controllers
             return View("Profile", review);
         }
 
-        // POST: Reviews/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        /*public async Task<IActionResult> Create([Bind("Id,review,timePosted")] AddReviewDTO dto)
-        {
-            var reviews = await _context.Movies.SingleOrDefaultAsync(u => u.Id == dto.Id);
-            if (reviews != null)
-            {
-                ModelState.AddModelError("", "This review already exists."); //we should never get here
-                dto.Id = -1;
-                return View();
-            }
-
-            int userId = (int)HttpContext.Session.GetInt32("CurrentUserId");
-            int movieId = (int)HttpContext.Session.GetInt32("CurrentMovieId");
-
-            var review = new Reviews
-            {
-                Id = dto.Id,
-                user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId),
-                movie = await _context.Movies.SingleOrDefaultAsync(u => u.Id == movieId),
-                review = dto.review,
-                timePosted = dto.timePosted
-            };
-
-            _context.Add(review);
-            await _context.SaveChangesAsync();
-            return View("Profile", review);
-        }*/
 
         // GET: Reviews/Edit/5
+        [Route("Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -207,6 +176,7 @@ namespace StatlerAndWaldorf.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [Route("Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

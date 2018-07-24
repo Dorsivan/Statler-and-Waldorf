@@ -14,12 +14,6 @@
     <thead>
         <tr>
             <th>
-                first name
-            </th>
-            <th>
-                lastname
-            </th>
-            <th>
                 movie title
             </th>
             <th>
@@ -38,14 +32,9 @@
                 @Html.DisplayFor(modelItem => item.userId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.movieId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.review)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isBlocked)
-            </td>
+        
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

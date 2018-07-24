@@ -10,7 +10,7 @@ using StatlerAndWaldorf.Models;
 namespace StatlerAndWaldorf.Migrations
 {
     [DbContext(typeof(StatlerAndWaldorfContext))]
-    [Migration("20180721193544_Initial")]
+    [Migration("20180723190943_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,19 +44,19 @@ namespace StatlerAndWaldorf.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("MoviesId");
+
                     b.Property<bool>("isBlocked");
 
-                    b.Property<int?>("movieId");
+                    b.Property<int>("movieId");
 
                     b.Property<string>("review");
 
-                    b.Property<int?>("userId");
+                    b.Property<int>("userId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("movieId");
-
-                    b.HasIndex("userId");
+                    b.HasIndex("MoviesId");
 
                     b.ToTable("Reviews");
                 });
@@ -88,13 +88,9 @@ namespace StatlerAndWaldorf.Migrations
 
             modelBuilder.Entity("StatlerAndWaldorf.Models.Reviews", b =>
                 {
-                    b.HasOne("StatlerAndWaldorf.Models.Movies", "movie")
+                    b.HasOne("StatlerAndWaldorf.Models.Movies")
                         .WithMany("Reviews")
-                        .HasForeignKey("movieId");
-
-                    b.HasOne("StatlerAndWaldorf.Models.Users", "user")
-                        .WithMany("Reviews")
-                        .HasForeignKey("userId");
+                        .HasForeignKey("MoviesId");
                 });
 #pragma warning restore 612, 618
         }

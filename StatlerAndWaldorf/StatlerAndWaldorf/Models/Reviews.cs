@@ -13,9 +13,9 @@ namespace StatlerAndWaldorf.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public virtual Users user { get; set; }
+        public int userId { get; set; }
 
-        public virtual Movies movie { get; set; }
+        public int movieId { get; set; }
 
         public string review { get; set; }
 

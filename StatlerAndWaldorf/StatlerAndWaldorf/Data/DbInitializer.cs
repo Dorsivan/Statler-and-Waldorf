@@ -43,7 +43,7 @@ namespace StatlerAndWaldorf.Data
                 Id = 1,
                 review = "The movie really was adorable! I knew exactly what to expect since I read the book, but I loved the adaptation. What helps the movie most is that the novelist, Jojo Moyees, wrote her own screenplay.She did a great job transitioning the story from paper to screen.Little things that were left out of the novel werent really needed to move the story along. Both Emilia Clarke and Sam Clafin were excellent. Her facial expressions were amazing and her insane eyebrows deserve some type of award all on their own.",
                 isBlocked = false,
-                user = users[1]
+                userId = 2
             };
 
             Movies movie = new Movies//new movie
@@ -55,7 +55,7 @@ namespace StatlerAndWaldorf.Data
                 ReleaseDate = date
             };
 
-            review.movie = movie;
+            review.movieId = movie.Id;
             movie.Reviews.Add(review);
 
             var movies = new Movies[]
