@@ -19,6 +19,7 @@ namespace StatlerAndWaldorf.Controllers
             HttpContext.Session.SetInt32("Role", 0); //0 guest, 1 user, 2 admin
             HttpContext.Session.SetInt32("CurrentUserId", 0);
             HttpContext.Session.SetInt32("CurrentMovieId", 0);
+            HttpContext.Session.SetString("CurrentUsername", "");
 
             return View();
         }

@@ -10,7 +10,7 @@ using StatlerAndWaldorf.Models;
 namespace StatlerAndWaldorf.Migrations
 {
     [DbContext(typeof(StatlerAndWaldorfContext))]
-    [Migration("20180723190943_Initial")]
+    [Migration("20180724100505_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,8 @@ namespace StatlerAndWaldorf.Migrations
                     b.Property<string>("review");
 
                     b.Property<int>("userId");
+
+                    b.Property<string>("userName");
 
                     b.HasKey("Id");
 

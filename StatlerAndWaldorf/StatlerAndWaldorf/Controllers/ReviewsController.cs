@@ -96,12 +96,17 @@ namespace StatlerAndWaldorf.Controllers
             return View();
         }
 
+        [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("userId,movieId,review")] CreateReviewDTO dto)
+        public async Task<IActionResult> Create([Bind("review")] AddReviewDTO dto)
         {
-            var reviews = await _context.Reviews.SingleOrDefaultAsync(u => u.userId == int.Parse(dto.userId) &&
-                                                                        u.movieId == int.Parse(dto.movieId));
+            int movieId = (int)HttpContext.Session.GetInt32("CurrentMovieId");
+            int userId = (int)HttpContext.Session.GetInt32("CurrentUserId");
+            string username = HttpContext.Session.GetString("CurrentUsername");
+
+            var reviews = await _context.Reviews.SingleOrDefaultAsync(u => u.userId == userId &&
+                                                                      u.movieId == movieId);
 
             if (reviews != null)
             {
@@ -111,15 +116,16 @@ namespace StatlerAndWaldorf.Controllers
 
             var review = new Reviews
             {
-                userId = int.Parse(dto.userId),
-                movieId = int.Parse(dto.movieId),
+                userId = userId,
+                movieId = movieId,
+                userName = username,
                 review = dto.review,
                 timePosted = DateTime.Now
             };
 
             _context.Add(review);
             await _context.SaveChangesAsync();
-            return View("Profile", review);
+            return View("Details", review);
         }
 
 

@@ -52,6 +52,8 @@ namespace StatlerAndWaldorf.Migrations
 
                     b.Property<int>("userId");
 
+                    b.Property<string>("userName");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MoviesId");

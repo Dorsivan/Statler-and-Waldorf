@@ -12,17 +12,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label>userId</label>
-                <input asp-for="userId" type="text" class="form-control" required />
-                <span asp-validation-for="userId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>movieId</label>
-                <input asp-for="movieId" type="text" class="form-control" required />
-                <span asp-validation-for="movieId" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <label>Review</label>
                 <input asp-for="review" class="form-control" required />

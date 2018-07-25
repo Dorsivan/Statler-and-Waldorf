@@ -10,7 +10,7 @@ namespace StatlerAndWaldorf.DTO
 {
     public class AddReviewDTO
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         /*public virtual Users user { get; set; }
 
@@ -18,7 +18,7 @@ namespace StatlerAndWaldorf.DTO
 
         public string review { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime timePosted;
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //public DateTime timePosted;
     }
 }

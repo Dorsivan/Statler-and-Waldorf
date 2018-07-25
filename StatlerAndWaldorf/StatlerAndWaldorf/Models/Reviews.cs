@@ -15,6 +15,8 @@ namespace StatlerAndWaldorf.Models
 
         public int userId { get; set; }
 
+        public string userName { get; set; }
+
         public int movieId { get; set; }
 
         public string review { get; set; }

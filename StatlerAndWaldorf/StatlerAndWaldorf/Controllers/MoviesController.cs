@@ -41,7 +41,7 @@ namespace StatlerAndWaldorf.Controllers
                 return NotFound();
             }
 
-            //HttpContext.Session.SetInt32("CurrentMovieId", (int)id);
+            HttpContext.Session.SetInt32("CurrentMovieId", movies.Id);
 
             return View(movies);
         }
