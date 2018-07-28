@@ -2,12 +2,19 @@
 @{
     ViewData["Title"] = "Statistics";
     var x = Model.GroupBy(g => g.Genre).Select(g => new { genre = g.Key, views = g.Sum(m => m.Length) }).ToArray();
+    var d = Model.GroupBy(g => g.ReleaseDate.DayOfYear).Select(g => new { date = g.Key, count = g.Count() }).ToArray();
 }
 
 <h2>Statistics</h2>
+<div id="chart1">
+</div>
 
-<script src="https://d3js.org/d3.v5.js"></script></script>
+<div id="chart2">
+</div>
+
+<script src="https://d3js.org/d3.v5.js"></script>
 <script>
+    //--------------Graph 1-------------------------------------------
 //  the data that powers the bar chart, a simple array of numeric value
     var chartdata = @Html.Raw(Json.Serialize(x.Select(g=>g.views).ToArray()));
     var genres = @Html.Raw(Json.Serialize(x.Select(g => g.genre).ToArray()));
@@ -17,12 +24,12 @@
         barOffset = 10,
         //  the width of each bar and the offset between each bar
         width = (barWidth + barOffset) * chartdata.length;
-    var svg = d3.select('#chart').append('svg')
+    var svg1 = d3.select('#chart1').append('svg')
         .attr('width', width)
         .attr('height', height)
         .style('background', '#dff0d8')
-    
-    svg.selectAll('rect').data(chartdata)
+
+    svg1.selectAll('rect').data(chartdata)
         .enter().append('rect')
         .attr('width', barWidth)
         .attr('height', function (data) {
@@ -33,22 +40,22 @@
         })
         .attr("y", function (data) {
             return height - data;
-        })    
+        })
 
-    svg.append('g').selectAll('text').data(genres)
+    svg1.append('g').selectAll('text').data(genres)
         .enter().append('text')
         .text(function (d) {
             return d;
         })
         .attr('height', 20)
         .attr('width', barWidth)
-        .attr('x', function (d, i) { 
+        .attr('x', function (d, i) {
             return i * (barWidth + barOffset);
         })
         .attr('y', height)
         .attr('fill', 'red');
 
-    svg.append('g').selectAll('text').data(chartdata)
+    svg1.append('g').selectAll('text').data(chartdata)
         .enter().append('text')
         .text(function (d, i) {
             return d.toString();
@@ -58,10 +65,63 @@
         .attr('x', function (d, i) {
             return i * (barWidth + barOffset);
         })
-        .attr('y', function (d) { 
+        .attr('y', function (d) {
             return height - d;
         })
         .attr('fill', 'blue');
+    //--------------------------------------
 
+    //----------------graph 2---------------
+    var arr = [];
+    for (item in @Html.Raw(Json.Serialize(x)))
+    {
+        arr.push({
+            date: item.date,
+            num: item.count
+        });
+    }
+
+    var svgWidth = 600, svgHeight = 400;
+    var margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    var width = svgWidth - margin.left - margin.right;
+    var height = svgHeight - margin.top - margin.bottom;
+    var svg = d3.select('#char2').append('svg')
+        .attr("width", svgWidth)
+        .attr("height", svgHeight);
+    var g = svg.append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")"
+        );
+    var x = d3.scaleTime().rangeRound([0, width]);
+    var y = d3.scaleLinear().rangeRound([height, 0]);
+    var line = d3.line()
+        .x(function (d) { return x(d.date) })
+        .y(function (d) { return y(d.value) })
+    x.domain(d3.extent(data, function (d) { return d.date }));
+    y.domain(d3.extent(data, function (d) { return d.num }));
+    g.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+        .select(".domain")
+        .remove();
+    g.append("g")
+        .call(d3.axisLeft(y))
+        .append("text")
+        .attr("fill", "#000")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Price ($)");
+
+    g.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .attr("d", line);
+    //-----------------------------
 </script>
 
