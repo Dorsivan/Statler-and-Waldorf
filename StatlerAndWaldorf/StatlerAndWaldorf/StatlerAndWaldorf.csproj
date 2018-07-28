@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Reviews\**" />
+    <Content Remove="Views\Reviews\**" />
+    <EmbeddedResource Remove="Views\Reviews\**" />
+    <None Remove="Views\Reviews\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameWorkCore.Tools" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
@@ -21,10 +28,6 @@
     <None Include="Views\Users\Profile.cshtml" />
     <None Include="Views\Users\showAllUsers.cshtml" />
     <None Include="Views\Users\Signup.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Reviews\" />
   </ItemGroup>
 
 </Project>

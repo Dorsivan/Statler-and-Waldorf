@@ -1,0 +1,67 @@
+﻿@model IEnumerable<StatlerAndWaldorf.Models.Movies>
+@{
+    ViewData["Title"] = "Statistics";
+    var x = Model.GroupBy(g => g.Genre).Select(g => new { genre = g.Key, views = g.Sum(m => m.Length) }).ToArray();
+}
+
+<h2>Statistics</h2>
+
+<script src="https://d3js.org/d3.v5.js"></script></script>
+<script>
+//  the data that powers the bar chart, a simple array of numeric value
+    var chartdata = @Html.Raw(Json.Serialize(x.Select(g=>g.views).ToArray()));
+    var genres = @Html.Raw(Json.Serialize(x.Select(g => g.genre).ToArray()));
+    //  the size of the overall svg element
+    var height = d3.max(chartdata) + 20,
+        barWidth = 50,
+        barOffset = 10,
+        //  the width of each bar and the offset between each bar
+        width = (barWidth + barOffset) * chartdata.length;
+    var svg = d3.select('#chart').append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .style('background', '#dff0d8')
+    
+    svg.selectAll('rect').data(chartdata)
+        .enter().append('rect')
+        .attr('width', barWidth)
+        .attr('height', function (data) {
+            return data;
+        })
+        .attr("x", function (data, i) {
+            return i * (barWidth + barOffset);
+        })
+        .attr("y", function (data) {
+            return height - data;
+        })    
+
+    svg.append('g').selectAll('text').data(genres)
+        .enter().append('text')
+        .text(function (d) {
+            return d;
+        })
+        .attr('height', 20)
+        .attr('width', barWidth)
+        .attr('x', function (d, i) { 
+            return i * (barWidth + barOffset);
+        })
+        .attr('y', height)
+        .attr('fill', 'red');
+
+    svg.append('g').selectAll('text').data(chartdata)
+        .enter().append('text')
+        .text(function (d, i) {
+            return d.toString();
+        })
+        .attr('height', 20)
+        .attr('width', barWidth)
+        .attr('x', function (d, i) {
+            return i * (barWidth + barOffset);
+        })
+        .attr('y', function (d) { 
+            return height - d;
+        })
+        .attr('fill', 'blue');
+
+</script>
+

@@ -20,6 +20,11 @@ namespace StatlerAndWaldorf.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Statistics()
+        {
+            return View(await _context.Movies.ToListAsync());
+        }
+
         // GET: Movies
         public async Task<IActionResult> ExploreMovies()
         {
